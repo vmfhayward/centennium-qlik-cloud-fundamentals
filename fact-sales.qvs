@@ -3,14 +3,14 @@ LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 FACT_Sales:
 LOAD 
-	CarID													AS [%Car_KEY], 
-	Date													AS [%Date_KEY], 
-	OfficeId												AS [%Office_KEY], 
-	LocationId												AS [%Location_KEY],
-	Color													AS [Color Sold], 
-	PurchasePrice											AS [#PurchasePrice], 
-	CatalogPrice											AS [#CatalogPrice], 
-	SalesPrice												AS [#SalesPrice];
+	[CarID]													AS [%Car_KEY]
+,	[OfficeId]												AS [%Office_KEY]
+,	[LocationId]											AS [%Location_KEY]
+,	DATE([Date], 'YYYYMMDD')								AS [%Date_KEY]
+,	[Color]													AS [Color Sold]
+,	[PurchasePrice]											AS [#PurchasePrice]
+,	[CatalogPrice]											AS [#CatalogPrice]
+,	[SalesPrice]											AS [#SalesPrice];
 SELECT 
 	CarID,
 	"Date",
