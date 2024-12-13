@@ -1,0 +1,11 @@
+Name:        			          SQL_Centennium-Opleidingen
+Server:      			          centennium-sql.database.windows.net
+Port:        			          1433
+Database:    			          Centennium-Opleidingen
+
+Authentication Mechanism:	  SQL Server Authentication
+User name:			            qlik-009
+Password:			              Welkom123
+
+Query timeout:			        300
+Max String Length:		      4096
