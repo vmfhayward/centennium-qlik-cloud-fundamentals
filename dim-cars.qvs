@@ -20,8 +20,8 @@ SELECT
 FROM "Centennium-Opleidingen".MillenniumCarSales.Cars;
 
 
-STORE [DIM_Cars] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Cars.qvd] (QVD);
-DROP TABLE [DIM_Cars];
+STORE [DIM_Car] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Car.qvd] (QVD);
+DROP TABLE [DIM_Car];
 
 
 DISCONNECT;
