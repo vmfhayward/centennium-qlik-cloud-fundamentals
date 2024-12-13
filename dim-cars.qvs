@@ -1,15 +1,15 @@
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 
-DIM_Cars:
+DIM_Car:
 LOAD 
-	CarID													AS [%Car_KEY],
-    CarID													AS [%Brandstof_KEY],
-	Name													AS [Merk en Model],
-	Jaren_eerste_toelating									AS [Eerste Toelating],
-	Meest_voorkomende_kleur									AS [Meest Voorkomende Kleur], 
-	Gemiddelde_catalogusprijs								AS [Gemiddelde Catalogusprijs], 
-	Gemiddeldvermogen										AS [Gemiddeld Vermogen];
+	[CarID]													AS [%Car_KEY]
+,	[CarID]													AS [%Fuel_KEY]
+,	[Name]													AS [Car make and model]
+,	[Jaren_eerste_toelating]								AS [First admission]
+,	[Meest_voorkomende_kleur]								AS [Most common color]
+,	[Gemiddelde_catalogusprijs]								AS [Average list price]
+,	[Gemiddeldvermogen]										AS [Average power];
 SELECT 
 	CarID,
 	Name,
