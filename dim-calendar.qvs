@@ -1,0 +1,92 @@
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+
+MinMax:
+LOAD
+	MIN([Date])			AS [MinDate],
+    MAX([Date])			AS [MaxDate];
+SELECT
+	"Date"
+FROM "Centennium-Opleidingen".MillenniumCarSales.Sales;
+
+
+LET StartDate 		= NUM(DATE(PEEK('MinDate', 0, 'MinMax'), 'YYYYMMDD'));
+LET EndDate 		= NUM(DATE(PEEK('MaxDate', 0, 'MinMax'), 'YYYYMMDD'));
+LET CurrentDate		= NUM(DATE(TODAY(), 'YYYYMMDD'));
+LET CurrentYear		= YEAR(TODAY());
+LET LY_YTD			= NUM(ADDMONTHS(TODAY(), -12, 0));
+LET DaysToEnd		= MONTHEND(TODAY())-TODAY();
+LET Timespan		= YEAR(TODAY())-YEAR(DATE($(StartDate)));
+
+
+DIM_Calendar:
+LOAD
+	DATE([Date], 'YYYYMMDD')																							AS [%Date_KEY]
+,	YEAR([Date]) 																										AS [Year]
+,	MONTH([Date]) 																										AS [Month]
+,	NUM(WEEK([Date]), 00) 																								AS [Week]
+,	DAY([Date]) 																										AS [Day]
+,	WEEKDAY([Date]) 																									AS [WeekDay]
+,	IF([Date] <= $(CurrentDate), [Date]) 																				AS [Date2]
+,	YEAR([Date]) & NUM(MONTH([Date]), 00) 																				AS [Year Month]
+,	YEAR([Date]) & '-' & NUM(MONTH([Date]), 00) 																		AS [YearMonth]
+,	DUAL(WEEKYEAR([Date]) & 'W' & NUM(WEEK([Date]), 00), WEEKYEAR([Date]) & NUM(WEEK([Date]), 00)) 						AS [Year Week2]
+,	YEAR([Date]) & NUM(WEEK([Date]), 00) 																				AS [Year Week]
+,	DUAL(WEEKYEAR([Date]) & NUM(WEEK([Date]), 00), WEEKYEAR([Date]) & NUM(WEEK([Date]), 00))							AS [Year Week3]
+,	DUAL(YEAR([Date]) & 'Q' & NUM(CEIL(NUM(MONTH([Date])) / 3)), YEAR([Date]) & NUM(CEIL(NUM(MONTH([Date])) / 3), 00)) 	AS [Year Quarter]
+,	DUAL('Q' & NUM(CEIL(NUM(MONTH([Date])) / 3)), NUM(CEIL(NUM(MONTH([Date])) / 3), 00)) 								AS [Quarter]
+,	NUM([Date]) 																										AS [DateNum]
+,	NUM([Date]) - 1 																									AS [DatePrevNum]
+,	1 																													AS [_DateCounter]
+
+
+// Calculation Flags
+// All flags below can be used in calculated dimensions and expressions, for example:
+// [_YTD_TY] used in Expressions SUM([Purchase Qty] * [_YTD_TY])
+
+//  Year    
+,	IF(INYEAR([Date], $(CurrentDate), -1), 1) 						AS [_FULL_LY] 				// All Dates Last Year
+,	IF(INYEAR([Date], $(CurrentDate), 0), 1) 						AS [_FULL_TY] 				// All Dates This Year
+,	IF(INYEARTODATE([Date], $(CurrentDate), 0), 1) 					AS [_YTD_TY] 				// All Dates to Date this Year
+,	IF(INYEARTODATE([Date], $(CurrentDate), -1), 1) 				AS [_YTD_LY]  				// All Dates to Date Last Year
+
+//  Quarter
+,	IF(INQUARTER([Date], $(CurrentDate), 0), 1)	 					AS [_FULL_TQ_TY] 			//  All Dates In Current Quarter this Year
+,	IF(INQUARTER([Date], $(LY_YTD), 0), 1) 							AS [_FULL_TQ_LY] 			//  All Dates In Current Quarter Last Year
+,	IF(INQUARTER([Date],$(CurrentDate), -1), 1) 					AS [_FULL_PRQ] 				//  All Dates In Previous Quarter
+,	IF(INQUARTERTODATE([Date], $(CurrentDate), 0), 1) 				AS [_QTD_TY] 				//  All Dates In Current Quarter to Date this Year
+,	IF(INQUARTERTODATE([Date], $(LY_YTD), 0), 1) 					AS [_QTD_LY] 				//  All Dates In Current Quarter to Date Last Year
+,	IF(INQUARTERTODATE([Date],$(CurrentDate), -1), 1) 				AS [_PR_QTD]				//  All Dates In Previous Quarter to Date
+    
+//  Month    
+,	IF(INMONTH([Date], $(CurrentDate), 0), 1) 						AS [_FULL_TM_TY]			// All Dates This Month This Year
+,	IF(INMONTH([Date], $(CurrentDate), -12), 1) 					AS [_FULL_TM_LY]			// All Dates This Month Last Year
+,	IF(INMONTH([Date], $(CurrentDate), -1), 1) 						AS [_FULL_PRM]				// All Dates Previous Month
+,	IF(INMONTHTODATE([Date], $(CurrentDate), 0), 1) 				AS [_MTD_TY]				// All Dates This Month To Date This Year
+,	IF(INMONTHTODATE([Date], $(CurrentDate), -12), 1) 				AS [_MTD_LY]				// All Dates This Month To Date Last Year
+,	IF(INMONTHTODATE([Date], $(CurrentDate), -1), 1) 				AS [_PR_MTD]				// All Dates Previous Month To Date
+    
+//  Week    
+,	IF(INWEEK([Date], $(CurrentDate), 0), 1) 						AS [_FULL_TW_TY]			// All Dates This Week This Year
+,	IF(INWEEK([Date], $(LY_YTD), 0), 1) 							AS [_FULL_TW_LY]			// All Dates This Week Last Year
+,	IF(INWEEK([Date], $(CurrentDate), -1), 1) 						AS [_FULL_PRW]				// All Dates Previous Week
+,	IF(INWEEKTODATE([Date], $(CurrentDate), 0), 1) 					AS [_WTD_TY]				// All Dates This Week To Date This Year
+,	IF(INWEEKTODATE([Date], $(CurrentDate), -1), 1) 				AS [_PR_WTD]				// All Dates Previous Week To Date
+
+// Last n days
+,	IF(NUM([Date]) >= ($(CurrentDate) - 7), 1) 						AS [_LAST_7D]
+,	IF(NUM([Date]) >= ($(CurrentDate) - 10), 1) 					AS [_LAST_10D]
+,	IF(NUM([Date]) >= ($(CurrentDate) - 14), 1) 					AS [_LAST_14D]
+;
+
+LOAD
+	$(StartDate) + (ITERNO() - 1) 									AS [Date]
+AUTOGENERATE 1
+WHILE DATE($(StartDate) + (ITERNO() - 1)) <= DATE($(EndDate));
+
+
+STORE [DIM_Calendar] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Calendar.qvd] (QVD);
+DROP TABLE [DIM_Calendar];
+
+
+DISCONNECT;
