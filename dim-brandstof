@@ -1,0 +1,18 @@
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+
+DIM_Brandstof:
+LOAD 
+	CarID													AS [%Brandstof_KEY],
+	SUBFIELD(Meest_voorkomende_brandstof, '+')				AS [Brandstof];
+SELECT 
+	CarID,
+	"Meest_voorkomende_brandstof"
+FROM "Centennium-Opleidingen".MillenniumCarSales.Cars;
+
+
+STORE [DIM_Brandstof] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Brandstof.qvd] (QVD);
+DROP TABLE [DIM_Brandstof];
+
+
+DISCONNECT;
