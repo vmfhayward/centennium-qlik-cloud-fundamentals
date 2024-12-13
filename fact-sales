@@ -1,23 +1,30 @@
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+
 FACT_Sales:
-LOAD
-	[SalesOrderID] 			AS [%Sales_KEY],
-	[OrderDate] 			AS [Order date],
-	[Status] 				AS [Order status],
-	[SalesOrderNumber] 		AS [Order number],
-	[CustomerID] 			AS [%Customer_KEY],
-	[TotalDue] 				AS [Total Order Amount]
-FROM [lib://DataFiles/Data-Landing-Zone/SalesLT/SalesOrderHeader.qvd] (QVD);
+LOAD 
+	CarID													AS [%Car_KEY], 
+	Date													AS [%Date_KEY], 
+	OfficeId												AS [%Office_KEY], 
+	LocationId												AS [%Location_KEY],
+	Color													AS [Color Sold], 
+	PurchasePrice											AS [#PurchasePrice], 
+	CatalogPrice											AS [#CatalogPrice], 
+	SalesPrice												AS [#SalesPrice];
+SELECT 
+	CarID,
+	"Date",
+	Color,
+	PurchasePrice,
+	CatalogPrice,
+	SalesPrice,
+	OfficeId,
+	LocationId
+FROM "Centennium-Opleidingen".MillenniumCarSales.Sales;
 
-LEFT JOIN (FACT_Sales)
-LOAD
-	[SalesOrderID] 			AS [%Sales_KEY],
-	[OrderQty] 				AS [# Order quantity],
-	[ProductID] 			AS [%Product_KEY],
-	[UnitPrice] 			AS [# Unit price],
-	[UnitPriceDiscount] 	AS [# Unit price (discount)],
-	[LineTotal] 			AS [# Sales Amount]
-FROM [lib://DataFiles/Data-Landing-Zone/SalesLT/SalesOrderDetail.qvd] (QVD);
 
-
-STORE [FACT_Sales] INTO [lib://DataFiles/Data-Product/SalesLT/FACT_Sales.qvd](qvd);
+STORE [FACT_Sales] INTO [lib://DataFiles/Data-Product/SalesLT/FACT_Sales.qvd] (QVD);
 DROP TABLE [FACT_Sales];
+
+
+DISCONNECT;
