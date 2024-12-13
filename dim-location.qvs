@@ -1,0 +1,22 @@
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+
+DIM_Location:
+LOAD 
+	[LocationId]								AS [%Location_KEY]
+,	[Continent]									AS [Continent]
+,	[Country]									AS [Country]
+,	[Subregion]									AS [Region];
+SELECT 
+	Continent,
+	Country,
+	LocationId,
+	Subregion
+FROM "Centennium-Opleidingen".MillenniumCarSales.Countries;
+
+
+STORE [DIM_Location] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Location.qvd] (QVD);
+DROP TABLE [DIM_Location];
+
+
+DISCONNECT;
