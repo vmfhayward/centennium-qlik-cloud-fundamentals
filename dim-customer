@@ -1,9 +1,0 @@
-DIM_Customer:
-LOAD
-    CustomerID					AS [%Customer_KEY],
-    CompanyName					AS [Customer Name]
-FROM [lib://DataFiles/Data-Landing-Zone/SalesLT/Customer.qvd] (QVD);
-
-
-STORE [DIM_Customer] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Customer.qvd] (QVD);
-DROP TABLE [DIM_Customer];
