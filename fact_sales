@@ -1,0 +1,23 @@
+FACT_Sales:
+LOAD
+	[SalesOrderID] 			AS [%Sales_KEY],
+	[OrderDate] 			AS [Order date],
+	[Status] 				AS [Order status],
+	[SalesOrderNumber] 		AS [Order number],
+	[CustomerID] 			AS [%Customer_KEY],
+	[TotalDue] 				AS [Total Order Amount]
+FROM [lib://DataFiles/Data-Landing-Zone/SalesLT/SalesOrderHeader.qvd] (QVD);
+
+LEFT JOIN (FACT_Sales)
+LOAD
+	[SalesOrderID] 			AS [%Sales_KEY],
+	[OrderQty] 				AS [# Order quantity],
+	[ProductID] 			AS [%Product_KEY],
+	[UnitPrice] 			AS [# Unit price],
+	[UnitPriceDiscount] 	AS [# Unit price (discount)],
+	[LineTotal] 			AS [# Sales Amount]
+FROM [lib://DataFiles/Data-Landing-Zone/SalesLT/SalesOrderDetail.qvd] (QVD);
+
+
+STORE [FACT_Sales] INTO [lib://DataFiles/Data-Product/SalesLT/FACT_Sales.qvd](qvd);
+DROP TABLE [FACT_Sales];
