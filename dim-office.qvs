@@ -3,13 +3,13 @@ LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 DIM_Office:
 LOAD 
-	OfficeId												AS [%Office_KEY],
-	City													AS [OfficeCity], 
-	Country													AS [OfficeCountry], 
-	REPLACE(OfficeName, 'Bert Mitic', 'Millennium Cars') 	AS [OfficeName],
-	Country_Code											AS [OfficeCountryCode],
-	latitude												AS [Latitude], 
-	longitude												AS [Longitude];
+	[OfficeId]													AS [%Office_KEY]
+,	[City]														AS [Office City]
+,	[Country]													AS [Office Country]
+,	[OfficeName] 												AS [Office Name]
+,	[Country_Code]												AS [Office Country Code]
+,	[latitude]													AS [Latitude]
+,	[longitude]													AS [Longitude];
 SELECT 
 	City,
 	OfficeId,
