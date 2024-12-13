@@ -1,0 +1,27 @@
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+
+DIM_Cars:
+LOAD 
+	CarID													AS [%Car_KEY],
+    CarID													AS [%Brandstof_KEY],
+	Name													AS [Merk en Model],
+	Jaren_eerste_toelating									AS [Eerste Toelating],
+	Meest_voorkomende_kleur									AS [Meest Voorkomende Kleur], 
+	Gemiddelde_catalogusprijs								AS [Gemiddelde Catalogusprijs], 
+	Gemiddeldvermogen										AS [Gemiddeld Vermogen];
+SELECT 
+	CarID,
+	Name,
+	"Jaren_eerste_toelating",
+	"Meest_voorkomende_kleur",
+	"Gemiddelde_catalogusprijs",
+	Gemiddeldvermogen
+FROM "Centennium-Opleidingen".MillenniumCarSales.Cars;
+
+
+STORE [DIM_Cars] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Cars.qvd] (QVD);
+DROP TABLE [DIM_Cars];
+
+
+DISCONNECT;
