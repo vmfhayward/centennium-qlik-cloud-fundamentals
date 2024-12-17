@@ -1,7 +1,7 @@
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 
-DIM_Office:
+DIM_Offices:
 LOAD 
 	[OfficeId]													AS [%Office_KEY]
 ,	[City]														AS [Office City]
@@ -18,11 +18,11 @@ SELECT
 	"Country_Code",
 	latitude,
 	longitude
-FROM "Centennium-Opleidingen".MillenniumCarSales.Office;
+FROM "Centennium-Opleidingen".MillenniumCarSales.Offices;
 
 
-STORE [DIM_Office] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Office.qvd] (QVD);
-DROP TABLE [DIM_Office];
+STORE [DIM_Offices] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Offices.qvd] (QVD);
+DROP TABLE [DIM_Offices];
 
 
 DISCONNECT;
