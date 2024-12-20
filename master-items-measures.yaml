@@ -1,0 +1,209 @@
+-
+   Active: 1
+   ID: 1
+   Master Item Name: # Sales Amount
+   Variable: SalesAmount
+   Label: Total sales (EUR)
+   Label Definitions: Total sales (EUR)
+   Custom Report ID: A
+   Custom Report Field: Total sales (EUR)
+   Expression: (SUM([# Sales Value]))
+   Description: This is the sum of sales transactions of the selected period current year.
+-
+   Active: 1
+   ID: 2
+   Master Item Name: # Sales Amount (CY)
+   Variable: SalesAmountCY
+   Label: ='Total sales (EUR) ' & MAX([Year])
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]))""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Value]))
+   Description: This is the sum of sales transactions of the selected period current year.
+-
+   Active: 1
+   ID: 3
+   Master Item Name: # Sales Amount (PY)
+   Variable: SalesAmountPY
+   Label: ='Total sales (EUR) ' & MAX([Year] - 1)
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]) - 1)""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Value]))
+   Description: This is the sum of sales transactions of the selected period last year.
+-
+   Active: 1
+   ID: 4
+   Master Item Name: # Sales Amount (Index)
+   Variable: SalesAmountIndex
+   Label: Index
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (($(var_SalesAmountCY) / $(var_SalesAmountPY)) * 100)
+   Description: The Index shows selected period divided by the same period last year multiplied by 100.
+-
+   Active: ""
+   ID: ""
+   Master Item Name: ""
+   Variable: ""
+   Label: ""
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: ""
+   Description: ""
+-
+   Active: 1
+   ID: 5
+   Master Item Name: # Sales Quantity
+   Variable: SalesQuantity
+   Label: Sales quantity (#)
+   Label Definitions: Sales quantity (#)
+   Custom Report ID: B
+   Custom Report Field: Sales quantity (#)
+   Expression: (SUM([# Sales Quantity]))
+   Description: The sum of sold quantities in pieces of the selected period current year.
+-
+   Active: 1
+   ID: 6
+   Master Item Name: # Sales Quantity (CY)
+   Variable: SalesQuantityCY
+   Label: ='Sales quantity (#) ' & MAX([Year])
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]))""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Quantity]))
+   Description: The sum of sold quantities in pieces of the selected period current year.
+-
+   Active: 1
+   ID: 7
+   Master Item Name: # Sales Quantity (PY)
+   Variable: SalesQuantityPY
+   Label: ='Sales quantity (#) ' & MAX([Year] - 1)
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]) - 1)""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Quantity]))
+   Description: The sum of sold quantities in pieces of the selected period last year.
+-
+   Active: 1
+   ID: 8
+   Master Item Name: # Sales Quantity (Index)
+   Variable: SalesQuantityIndex
+   Label: Index
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (($(var_SalesQuantityCY) / $(var_SalesQuantityPY)) * 100)
+   Description: The Index shows selected period divided by the same period last year multiplied by 100.
+-
+   Active: ""
+   ID: ""
+   Master Item Name: ""
+   Variable: ""
+   Label: ""
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: ""
+   Description: ""
+-
+   Active: 1
+   ID: 9
+   Master Item Name: # Sales Volume
+   Variable: SalesVolume
+   Label: Sales volume (m3)
+   Label Definitions: Sales volume (m3)
+   Custom Report ID: C
+   Custom Report Field: Sales volume (m3)
+   Expression: (SUM([# Sales Volume (m3)]))
+   Description: This is the sold volume in m3 of the selected period current year.
+-
+   Active: 1
+   ID: 10
+   Master Item Name: # Sales Volume (CY)
+   Variable: SalesVolumeCY
+   Label: ='Sales volume (m3) ' & MAX([Year])
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]))""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Volume (m3)]))
+   Description: This is the sold volume in m3 of the selected period current year.
+-
+   Active: 1
+   ID: 11
+   Master Item Name: # Sales Volume (PY)
+   Variable: SalesVolumePY
+   Label: ='Sales volume (m3) ' & MAX([Year] - 1)
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (SUM({<[Year] = {"$(=MAX([Year]) - 1)""}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))""}>} [Week], '"",""'))""}>} [# Sales Volume (m3)]))
+   Description: This is the sold volume in m3 of the selected period last year.
+-
+   Active: 1
+   ID: 12
+   Master Item Name: # Sales Volume (Index)
+   Variable: SalesVolumeIndex
+   Label: Index
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (($(var_SalesVolumeCY) / $(var_SalesVolumePY)) * 100)
+   Description: The Index shows selected period divided by the same period last year multiplied by 100.
+-
+   Active: ""
+   ID: ""
+   Master Item Name: ""
+   Variable: ""
+   Label: ""
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: ""
+   Description: ""
+-
+   Active: 1
+   ID: 13
+   Master Item Name: # Average Price Per Article Sold
+   Variable: AveragePricePerArticleSold
+   Label: Avg. price per article sold
+   Label Definitions: Avg. price per article sold
+   Custom Report ID: D
+   Custom Report Field: Avg. price per article sold
+   Expression: ($(var_SalesAmount) / $(var_SalesQuantity))
+   Description: This is the average price per article sold of the selected period current year.
+-
+   Active: 1
+   ID: 14
+   Master Item Name: # Average Price Per Article Sold (CY)
+   Variable: AveragePricePerArticleSoldCY
+   Label: ='Avg. price per article sold ' & MAX([Year])
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: ($(var_SalesAmountCY) / $(var_SalesQuantityCY))
+   Description: This is the average price per article sold of the selected period current year.
+-
+   Active: 1
+   ID: 15
+   Master Item Name: # Average Price Per Article Sold (PY)
+   Variable: AveragePricePerArticleSoldPY
+   Label: ='Avg. price per article sold ' & MAX([Year] - 1)
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: ($(var_SalesAmountPY) / $(var_SalesQuantityPY))
+   Description: This is the average price per article sold of the selected period last year.
+-
+   Active: 1
+   ID: 16
+   Master Item Name: # Average Price Per Article Sold (Index)
+   Variable: AveragePricePerArticleSoldIndex
+   Label: Index
+   Label Definitions: ""
+   Custom Report ID: ""
+   Custom Report Field: ""
+   Expression: (($(var_AveragePricePerArticleSoldCY) / $(var_AveragePricePerArticleSoldPY)) * 100)
+   Description: The Index shows selected period divided by the same period last year multiplied by 100.

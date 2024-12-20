@@ -1,0 +1,23 @@
+[MI_Measures]:
+LOAD * INLINE [
+'Active','ID','Master Item Name','Variable','Label','Label Definitions','Custom Report ID','Custom Report Field','Expression','Description'
+'1','1','# Sales Amount','SalesAmount','Total sales (EUR)','Total sales (EUR)','A','Total sales (EUR)','(SUM([# Sales Value]))','This is the sum of sales transactions of the selected period current year.'
+'1','2','# Sales Amount (CY)','SalesAmountCY','='Total sales (EUR) ' & MAX([Year])','','','','(SUM({<[Year] = {"$(=MAX([Year]))"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Value]))','This is the sum of sales transactions of the selected period current year.'
+'1','3','# Sales Amount (PY)','SalesAmountPY','='Total sales (EUR) ' & MAX([Year] - 1)','','','','(SUM({<[Year] = {"$(=MAX([Year]) - 1)"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Value]))','This is the sum of sales transactions of the selected period last year.'
+'1','4','# Sales Amount (Index)','SalesAmountIndex','Index','','','','(($(var_SalesAmountCY) / $(var_SalesAmountPY)) * 100)','The Index shows selected period divided by the same period last year multiplied by 100.'
+'','','','','','','','','',''
+'1','5','# Sales Quantity','SalesQuantity','Sales quantity (#)','Sales quantity (#)','B','Sales quantity (#)','(SUM([# Sales Quantity]))','The sum of sold quantities in pieces of the selected period current year.'
+'1','6','# Sales Quantity (CY)','SalesQuantityCY','='Sales quantity (#) ' & MAX([Year])','','','','(SUM({<[Year] = {"$(=MAX([Year]))"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Quantity]))','The sum of sold quantities in pieces of the selected period current year.'
+'1','7','# Sales Quantity (PY)','SalesQuantityPY','='Sales quantity (#) ' & MAX([Year] - 1)','','','','(SUM({<[Year] = {"$(=MAX([Year]) - 1)"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Quantity]))','The sum of sold quantities in pieces of the selected period last year.'
+'1','8','# Sales Quantity (Index)','SalesQuantityIndex','Index','','','','(($(var_SalesQuantityCY) / $(var_SalesQuantityPY)) * 100)','The Index shows selected period divided by the same period last year multiplied by 100.'
+'','','','','','','','','',''
+'1','9','# Sales Volume','SalesVolume','Sales volume (m3)','Sales volume (m3)','C','Sales volume (m3)','(SUM([# Sales Volume (m3)]))','This is the sold volume in m3 of the selected period current year.'
+'1','10','# Sales Volume (CY)','SalesVolumeCY','='Sales volume (m3) ' & MAX([Year])','','','','(SUM({<[Year] = {"$(=MAX([Year]))"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Volume (m3)]))','This is the sold volume in m3 of the selected period current year.'
+'1','11','# Sales Volume (PY)','SalesVolumePY','='Sales volume (m3) ' & MAX([Year] - 1)','','','','(SUM({<[Year] = {"$(=MAX([Year]) - 1)"}, [Week] = {"$(=CONCAT({$<[Year] = {"$(=MAX([Year]))"}>} [Week], '","'))"}>} [# Sales Volume (m3)]))','This is the sold volume in m3 of the selected period last year.'
+'1','12','# Sales Volume (Index)','SalesVolumeIndex','Index','','','','(($(var_SalesVolumeCY) / $(var_SalesVolumePY)) * 100)','The Index shows selected period divided by the same period last year multiplied by 100.'
+'','','','','','','','','',''
+'1','13','# Average Price Per Article Sold','AveragePricePerArticleSold','Avg. price per article sold','Avg. price per article sold','D','Avg. price per article sold','($(var_SalesAmount) / $(var_SalesQuantity))','This is the average price per article sold of the selected period current year.'
+'1','14','# Average Price Per Article Sold (CY)','AveragePricePerArticleSoldCY','='Avg. price per article sold ' & MAX([Year])','','','','($(var_SalesAmountCY) / $(var_SalesQuantityCY))','This is the average price per article sold of the selected period current year.'
+'1','15','# Average Price Per Article Sold (PY)','AveragePricePerArticleSoldPY','='Avg. price per article sold ' & MAX([Year] - 1)','','','','($(var_SalesAmountPY) / $(var_SalesQuantityPY))','This is the average price per article sold of the selected period last year.'
+'1','16','# Average Price Per Article Sold (Index)','AveragePricePerArticleSoldIndex','Index','','','','(($(var_AveragePricePerArticleSoldCY) / $(var_AveragePricePerArticleSoldPY)) * 100)','The Index shows selected period divided by the same period last year multiplied by 100.'
+];
