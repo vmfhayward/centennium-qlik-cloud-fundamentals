@@ -4,7 +4,7 @@ Port:        			            1433
 Database:    			            Centennium-Opleidingen
 
 Authentication Mechanism:	        SQL Server Authentication
-User name:			                qli-001 t/m qlik-008 (qlik-009 + qlik-010 reserved)
+User name:			                qlik-001 t/m qlik-008 (qlik-009 + qlik-010 reserved)
 Password:			                Welkom123
 
 Query timeout:			            300
