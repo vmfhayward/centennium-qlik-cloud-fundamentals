@@ -1,3 +1,8 @@
+// Wake Up Azure SQL Database
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+SLEEP 30000;
+
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 
@@ -11,7 +16,7 @@ SELECT
 FROM "Centennium-Opleidingen".MillenniumCarSales.Cars;
 
 
-STORE [DIM_Fuel] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Fuel.qvd] (QVD);
+STORE [DIM_Fuel] INTO [lib://DataFiles/Data-Product/MillenniumCars/DIM_Fuel.qvd] (QVD);
 DROP TABLE [DIM_Fuel];
 
 

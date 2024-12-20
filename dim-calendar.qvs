@@ -1,3 +1,8 @@
+// Wake Up Azure SQL Database
+LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+SLEEP 30000;
+
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 
@@ -85,7 +90,7 @@ AUTOGENERATE 1
 WHILE DATE($(StartDate) + (ITERNO() - 1)) <= DATE($(EndDate));
 
 
-STORE [DIM_Calendar] INTO [lib://DataFiles/Data-Product/SalesLT/DIM_Calendar.qvd] (QVD);
+STORE [DIM_Calendar] INTO [lib://DataFiles/Data-Product/MillenniumCars/DIM_Calendar.qvd] (QVD);
 DROP TABLE [DIM_Calendar];
 
 
