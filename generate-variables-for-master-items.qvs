@@ -1,10 +1,12 @@
 /*****************************************************************************************************************************************************
-	GENERATE MASTER ITEM MEASURE VARIABLES
+	MASTER ITEM MEASURES
 ******************************************************************************************************************************************************
     Description:
     Create variables with Expressions, Labels and Descriptions based on the JSON file in DataFiles.
     
 *****************************************************************************************************************************************************/
+
+// JSON file with records that can be updated easily by uploading and and overwriting the JSON file in DataFiles.
 MasterItemMeasures:
 LOAD
     [Active]
@@ -25,6 +27,11 @@ WHERE
 ;
 
 
+// Convert the records into useable variables that can be added the Master Items within an app.
+// This loop creates these variables based on the stam variable name from field [Variable].
+// The Expression variable starts with exp and can be added the the Expression inputfield of the Master Item with syntax $(exp_VariableName)
+// The Label variable starts with lab and can be added the the Label inputfield of the Master Item with syntax '$(lab_VariableName)'
+// The Description variable starts with des and can be added the the Description inputfield of the Master Item with syntax =des_VariableName
 FOR m = 0 TO NOOFROWS('MasterItemMeasures')
 
 	LET vKPIExpression 			= 'exp_' & PEEK('Variable', 	$(m) - 1 , 'KPI');
@@ -36,5 +43,10 @@ FOR m = 0 TO NOOFROWS('MasterItemMeasures')
 
 NEXT m;
 
-
+// Clean up redundant tables and variables created during this process.
 DROP TABLE MasterItemMeasures;
+
+LET m 					= NULL();
+LET vKPIExpression		= NULL();
+LET vKPILabel			= NULL();
+LET vKPIDescription		= NULL();
