@@ -1,0 +1,40 @@
+/*****************************************************************************************************************************************************
+	GENERATE MASTER ITEM MEASURE VARIABLES
+******************************************************************************************************************************************************
+    Description:
+    Create variables with Expressions, Labels and Descriptions based on the JSON file in DataFiles.
+    
+*****************************************************************************************************************************************************/
+MasterItemMeasures:
+LOAD
+    [Active]
+,	[ID]
+,	[Master Item Name]
+,	[Variable]
+,	[Label]
+,	[Label Definitions]
+,	[Custom Report ID]
+,	[Custom Report Field]
+,	[Expression]
+,	[Description]
+FROM 
+	[lib://DataFiles/master-items-measures.json] (JSON)
+WHERE
+	[Active] = 1 AND 
+    LEN([Expression]) > 0
+;
+
+
+FOR m = 0 TO NOOFROWS('MasterItemMeasures')
+
+	LET vKPIExpression 			= 'exp_' & PEEK('Variable', 	$(m) - 1 , 'KPI');
+    LET vKPILabel 				= 'lab_' & PEEK('Variable', 	$(m) - 1 , 'KPI');
+    LET vKPIDescription 		= 'des_' & PEEK('Variable', 	$(m) - 1 , 'KPI');
+	LET $(vKPIExpression)		= PEEK('Expression', 			$(m) - 1 , 'KPI');
+    LET $(vKPILabel)			= PEEK('Label', 				$(m) - 1 , 'KPI');
+    LET $(vKPIDescription) 		= PEEK('Description', 			$(m) - 1 , 'KPI');
+
+NEXT m;
+
+
+DROP TABLE MasterItemMeasures;
