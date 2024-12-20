@@ -1,9 +1,13 @@
 // Wake Up Azure SQL Database
+SET ErrorMode = 0;
+
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
 
 SLEEP 30000;
 
 LIB CONNECT TO 'SQL_Centennium-Opleidingen';
+
+SET ErrorMode = 1;
 
 
 DIM_Location:
